@@ -5,6 +5,7 @@ import { PixelRatio, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import { Raleway_400Regular } from '@expo-google-fonts/raleway';
+import { CustomTypography } from './src/components/CustomText';
 
 export default function App() {
 
@@ -35,6 +36,8 @@ export default function App() {
       <Text style={styles.descricao}>
         {handlePixelRatio(PixelRatio.get())}
       </Text>
+      
+      <CustomTypography>Teste</CustomTypography>
 
       <StatusBar style="auto" />
     </View>
