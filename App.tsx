@@ -1,47 +1,41 @@
+
 import { StatusBar } from 'expo-status-bar';
-import AppLoading from 'expo-app-loading';
-import { PixelRatio, StyleSheet, Text, View } from 'react-native';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 
-import { useFonts } from 'expo-font';
-
-import { Raleway_400Regular } from '@expo-google-fonts/raleway';
-import { CustomTypography } from './src/components/CustomText';
+import { CustomTypography } from './src/components/CustomTypography';
+import { useAppFonts } from './src/hooks/useAppFonts';
 
 export default function App() {
 
-  const handlePixelRatio = (ppi: number) => {
+  const [fontsLoaded] = useAppFonts()
 
-    let [fontsLoaded] = useFonts({
-      'roboto-mono': require('./assets/RobotoMono_600SemiBold.ttf'),
-      'raleway': Raleway_400Regular
-    })
-
-    if (!fontsLoaded) {
-      return <AppLoading />
-    }
-
-    const ppiString = ppi < 2 ? 'baixa' :
-      ppi < 3 ? 'média' : 'alta'
-
-    return `Resultado: ${ppiString} (${ppi})`
+  if (!fontsLoaded) {
+    return null
   }
 
   return (
     <View style={styles.container}>
-
-      <Text style={styles.titulo}>
-        Densidade de pixel deste dispositivo
-      </Text>
-
-      <Text style={styles.descricao}>
-        {handlePixelRatio(PixelRatio.get())}
-      </Text>
       
-      <CustomTypography>Teste</CustomTypography>
-
       <StatusBar style="auto" />
+
+      <CustomTypography font='RobotoMono' weight='semibold'>
+        Densidade de pixel deste dispositivo
+      </CustomTypography>
+      
+      <CustomTypography font='Raleway' weight='regular'>
+        {handlePixelRatio(PixelRatio.get())}
+      </CustomTypography>
+
     </View>
   );
+}
+
+const handlePixelRatio = (ppi: number) => {
+
+  const ppiString = ppi < 2 ? 'baixa' :
+    ppi < 3 ? 'média' : 'alta'
+
+  return `Resultado: ${ppiString} (${ppi})`
 }
 
 const styles = StyleSheet.create({
@@ -51,15 +45,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titulo: {
-    fontFamily: 'roboto-mono',
-    fontSize:25,
-    textAlign: 'center'
-    
-  },
-  descricao:{
-    fontFamily: 'raleway',
-    fontSize:20,
-    textAlign: 'center'
-  }
 });
