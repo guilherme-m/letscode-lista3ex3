@@ -1,8 +1,8 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { PixelRatio, StyleSheet, View } from 'react-native';
+import { PixelRatio, StyleSheet, View, Text } from 'react-native';
 
-import { CustomTypography } from './src/components/CustomTypography';
+import { ThemedText} from './src/components/ThemedText';
 import { useAppFonts } from './src/hooks/useAppFonts';
 
 export default function App() {
@@ -18,13 +18,14 @@ export default function App() {
       
       <StatusBar style="auto" />
 
-      <CustomTypography font='RobotoMono' weight='semibold'>
+      <ThemedText variant='title'>
         Densidade de pixel deste dispositivo
-      </CustomTypography>
+      </ThemedText>
       
-      <CustomTypography font='Raleway' weight='regular'>
+      <ThemedText variant='body'>
         {handlePixelRatio(PixelRatio.get())}
-      </CustomTypography>
+      </ThemedText>
+      
 
     </View>
   );
@@ -41,7 +42,7 @@ const handlePixelRatio = (ppi: number) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#96aff3',
     alignItems: 'center',
     justifyContent: 'center',
   },
